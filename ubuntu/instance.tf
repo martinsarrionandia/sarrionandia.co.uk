@@ -30,6 +30,11 @@ resource "aws_instance" "sarrionandia" {
     Name    = local.sarrionandia_fqdn
     Rancher = "True"
   }
+
+  provisioner "local-exec" {
+  command = "ssh-keygen -R ${self.tags.Name}"
+  when = destroy
+  }
 }
 
 resource "aws_network_interface" "sarrionandia" {

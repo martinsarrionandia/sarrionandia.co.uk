@@ -1,0 +1,20 @@
+---
+
+- name: install wordpress dependancies
+  apt:
+    pkg:
+      - "apache2"
+      - "ghostscript"
+      - "libapache2-mod-php"
+      - "php"
+      - "php-bcmath"
+      - "php-curl"
+      - "php-imagick"
+      - "php-json"
+      - "php-mbstring"
+      - "php-mysql"
+      - "php-xml"
+      - "php-zip"
+      - "mysql-server"
+    state: latest
+    update_cache: yes

@@ -1,0 +1,7 @@
+---
+
+- name: Update stuff
+  hosts: ubuntu
+  roles:
+    - update
+    - wordpress
