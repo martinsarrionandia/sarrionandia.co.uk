@@ -2,6 +2,13 @@
 
 - name: Update stuff
   hosts: ubuntu
+  vars_files: vars/ubuntu.yaml
   roles:
+    - volumes
     - update
+    - awscli
     - wordpress
+    - { role: geerlingguy.certbot }
+    - { role: geerlingguy.apache }
+  become: true
+  become_user: root

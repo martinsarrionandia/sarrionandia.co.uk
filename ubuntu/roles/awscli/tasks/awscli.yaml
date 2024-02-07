@@ -1,0 +1,8 @@
+---
+
+- name: Install AWS CLI
+  apt:
+    pkg:
+      - "awscli"
+    state: latest
+    update_cache: yes

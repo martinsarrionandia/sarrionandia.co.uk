@@ -1,0 +1,30 @@
+apache_listen_port: 80
+apache_listen_port_ssl: 443
+apache_remove_default_vhost: true
+apache_vhosts_ssl:
+  - servername: "www.iconsfromjars.co.uk"
+    documentroot: "/var/www/www.iconsfromjars.co.uk"
+    certificate_file: "/etc/letsencrypt/live/www.iconsfromjars.co.uk/cert.pem"
+    certificate_key_file: "/etc/letsencrypt/live/www.iconsfromjars.co.uk/privkey.pem"
+    certificate_chain_file: "/etc/letsencrypt/live/www.iconsfromjars.co.uk/chain.pem"
+  - servername: "www.djmaddox.co.uk"
+    documentroot: "/var/www/www.djmaddox.co.uk"
+    certificate_file: "/etc/letsencrypt/live/www.djmaddox.co.uk/cert.pem"
+    certificate_key_file: "/etc/letsencrypt/live/www.djmaddox.co.uk/privkey.pem"
+    certificate_chain_file: "/etc/letsencrypt/live/www.djmaddox.co.uk/chain.pem"
+
+certbot_create_if_missing: true
+certbot_auto_renew_user: root
+certbot_auto_renew_minute: "20"
+certbot_auto_renew_hour: "5"
+certbot_hsts: true
+certbot_create_method: standalone
+certbot_create_standalone_stop_services:
+  - apache2
+certbot_certs:
+  - email: martin@sarrionandia.co.uk
+    domains:
+    - www.iconsfromjars.co.uk
+  - email: martin@sarrionandia.co.uk
+    domains:
+    - www.djmaddox.co.uk

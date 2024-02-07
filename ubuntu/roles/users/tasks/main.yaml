@@ -1,0 +1,5 @@
+---
+
+- import_tasks: create_user_accounts.yaml
+  become: true
+  become_user: root

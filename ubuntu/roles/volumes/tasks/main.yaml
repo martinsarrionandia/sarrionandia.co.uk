@@ -1,0 +1,5 @@
+---
+
+- import_tasks: mount_volumes.yaml
+  become: true
+  become_user: root

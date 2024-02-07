@@ -1,0 +1,31 @@
+---
+
+- name: Mount MySQL disk
+  mount:
+    path: "/var/lib/mysql"
+    src: UUID="ad02dbc5-711a-4383-b8ed-194669e63161"
+    fstype: ext4
+    state: mounted
+
+- name: Mount www.iconsfromjars.co.uk wordpress root
+  mount:
+    path: "/var/www/www.iconsfromjars.co.uk"
+    src: UUID="770f2bcb-972c-46cd-ac56-8e191f3e1953"
+    fstype: ext4
+    state: mounted
+
+- name: Mount www.djmaddox.co.uk wordpress root
+  mount:
+    path: "/var/www/www.djmaddox.co.uk"
+    src: UUID="92d4a329-ecfd-4026-95d2-418c66682b42"
+    fstype: ext4
+    state: mounted
+
+- name: Mount www.djmaddox.co.uk wordpress root
+  mount:
+    path: "/var/www/www.djmaddox.co.uk/wp-content/uploads"
+    src: UUID="d78b2eed-bac4-4bcf-bc98-de4278f72787"
+    fstype: ext4
+    state: mounted
+
+    

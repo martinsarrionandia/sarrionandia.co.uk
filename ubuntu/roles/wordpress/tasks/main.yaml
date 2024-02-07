@@ -1,5 +1,6 @@
 ---
 
-- import_tasks: apache.yaml
+- import_tasks: wordpress.yaml
+- import_tasks: apache_modules.yaml
   become: true
   become_user: root
