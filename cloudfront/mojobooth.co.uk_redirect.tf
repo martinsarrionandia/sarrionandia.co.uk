@@ -19,46 +19,27 @@ resource "aws_s3_bucket" "mojobooth_redirect" {
   bucket = "mojobooth-co-uk-redirect"
 
   tags = {
-    Name        = "Mojobooth Redirect"
-    Website     = true
+    Name    = "Mojobooth Redirect"
+    Website = true
   }
 }
 
 resource "aws_s3_bucket_website_configuration" "mojobooth" {
   bucket = aws_s3_bucket.mojobooth_redirect.id
 
-  redirect_all_requests_to  {
+  redirect_all_requests_to {
     host_name = "www.djmaddox.co.uk/about/photo-mirror/"
-    protocol = "https"
-  } 
-}
-
-resource "aws_cloudfront_origin_access_identity" "mojobooth_redirect" {
-  comment = "Mojobooth Redirect"
-}
-
-data "aws_iam_policy_document" "mojobooth_redirect" {
-  statement {
-    actions   = ["s3:GetObject"]
-    resources = ["${aws_s3_bucket.mojobooth_redirect.arn}/*"]
-
-    principals {
-      type        = "AWS"
-      identifiers = [aws_cloudfront_origin_access_identity.mojobooth_redirect.iam_arn]
-    }
+    protocol  = "https"
   }
-}
-
-resource "aws_s3_bucket_policy" "mojobooth_redirect" {
-  bucket = aws_s3_bucket.mojobooth_redirect.id
-  policy = data.aws_iam_policy_document.mojobooth_redirect.json
 }
 
 resource "aws_s3_bucket_public_access_block" "mojobooth_redirect" {
   bucket = aws_s3_bucket.mojobooth_redirect.id
 
-  block_public_acls       = true
-  block_public_policy     = true
+  block_public_acls       = false
+  block_public_policy     = false
+  ignore_public_acls      = false
+  restrict_public_buckets = false
 }
 
 resource "aws_acm_certificate" "mojobooth" {
@@ -67,7 +48,7 @@ resource "aws_acm_certificate" "mojobooth" {
   validation_method = "DNS"
 }
 
-resource "aws_route53_record" "mojobooth" {
+resource "aws_route53_record" "mojobooth_acm_validation" {
   for_each = {
     for dvo in aws_acm_certificate.mojobooth.domain_validation_options : dvo.domain_name => {
       name   = dvo.resource_record_name
@@ -87,7 +68,7 @@ resource "aws_route53_record" "mojobooth" {
 resource "aws_acm_certificate_validation" "mojobooth" {
   provider                = aws.us-east-1
   certificate_arn         = aws_acm_certificate.mojobooth.arn
-  validation_record_fqdns = [for record in aws_route53_record.mojobooth : record.fqdn]
+  validation_record_fqdns = [for record in aws_route53_record.mojobooth_acm_validation : record.fqdn]
 }
 
 data "aws_cloudfront_cache_policy" "mojobooth" {
@@ -102,24 +83,23 @@ resource "aws_cloudfront_distribution" "mojobooth" {
     origin_id   = aws_s3_bucket.mojobooth_redirect.bucket_regional_domain_name
 
 
-      custom_origin_config {
-        http_port = 80
-        https_port = 443
-        origin_protocol_policy = "http-only"
-        origin_ssl_protocols = [ "TLSv1.2" ]
-        #origin_access_identity = aws_cloudfront_origin_access_identity.mojobooth_redirect.cloudfront_access_identity_path
-      }
+    custom_origin_config {
+      http_port              = 80
+      https_port             = 443
+      origin_protocol_policy = "http-only"
+      origin_ssl_protocols   = ["TLSv1.2"]
+    }
   }
-  
+
 
   aliases = ["mojobooth.co.uk"]
   enabled = true
 
   default_cache_behavior {
-    cache_policy_id = data.aws_cloudfront_cache_policy.mojobooth.id
+    cache_policy_id  = data.aws_cloudfront_cache_policy.mojobooth.id
     allowed_methods  = ["GET", "HEAD"]
     cached_methods   = ["GET", "HEAD"]
-    target_origin_id =  aws_s3_bucket.mojobooth_redirect.bucket_regional_domain_name
+    target_origin_id = aws_s3_bucket.mojobooth_redirect.bucket_regional_domain_name
 
     viewer_protocol_policy = "allow-all"
     min_ttl                = 0
@@ -135,6 +115,6 @@ resource "aws_cloudfront_distribution" "mojobooth" {
 
   viewer_certificate {
     acm_certificate_arn = aws_acm_certificate.mojobooth.id
-    ssl_support_method = "sni-only"
+    ssl_support_method  = "sni-only"
   }
 }
