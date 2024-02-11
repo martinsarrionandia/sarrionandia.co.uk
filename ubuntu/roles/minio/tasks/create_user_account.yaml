@@ -1,0 +1,8 @@
+---
+
+- user:
+    name: "{{ mc_user }}"
+    comment: "Minio Client user"
+    groups: www-data
+    append: yes
+    shell: /bin/false

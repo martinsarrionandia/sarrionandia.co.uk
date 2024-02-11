@@ -49,3 +49,6 @@ data "aws_ebs_volume" "wordpress_djmaddox_images" {
   }
 }
 
+data "aws_kms_key" "sarrionandia" {
+  key_id = "alias/Sarrionandia"
+}

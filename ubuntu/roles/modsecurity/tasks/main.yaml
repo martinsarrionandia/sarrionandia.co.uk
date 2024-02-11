@@ -1,0 +1,5 @@
+---
+
+- import_tasks: mod-security.yaml
+  become: true
+  become_user: root

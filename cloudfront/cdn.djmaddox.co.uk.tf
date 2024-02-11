@@ -17,36 +17,36 @@ resource "aws_route53_record" "cdn_djmaddox_co_uk" {
 
 data "aws_s3_bucket" "cdn_djmaddox_co_uk" {
   provider = aws.eu-west-1
-  bucket = "cdn.djmaddox.co.uk"
+  bucket   = "cdn.djmaddox.co.uk"
 }
 
 data "aws_iam_policy_document" "cdn_djmaddox_co_uk" {
   statement {
-    sid = "AllowCloudFrontServicePrincipalReadOnly"
+    sid    = "AllowCloudFrontServicePrincipalReadOnly"
     effect = "Allow"
     principals {
-      type = "Service"
-      identifiers = [ "cloudfront.amazonaws.com" ]
+      type        = "Service"
+      identifiers = ["cloudfront.amazonaws.com"]
     }
-    actions = [ "s3:GetObject" ]
+    actions   = ["s3:GetObject"]
     resources = ["${data.aws_s3_bucket.cdn_djmaddox_co_uk.arn}/*"]
     condition {
-      test = "StringEquals"
+      test     = "StringEquals"
       variable = "AWS:SourceArn"
-      values = [ aws_cloudfront_distribution.cdn_djmaddox_co_uk.arn ]
+      values   = [aws_cloudfront_distribution.cdn_djmaddox_co_uk.arn]
     }
   }
 }
 
 resource "aws_s3_bucket_policy" "cdn_djmaddox_co_uk" {
   provider = aws.eu-west-1
-  bucket = data.aws_s3_bucket.cdn_djmaddox_co_uk.id
-  policy = data.aws_iam_policy_document.cdn_djmaddox_co_uk.json
+  bucket   = data.aws_s3_bucket.cdn_djmaddox_co_uk.id
+  policy   = data.aws_iam_policy_document.cdn_djmaddox_co_uk.json
 }
 
 resource "aws_s3_bucket_public_access_block" "cdn_djmaddox_co_uk" {
   provider = aws.eu-west-1
-  bucket = data.aws_s3_bucket.cdn_djmaddox_co_uk.id
+  bucket   = data.aws_s3_bucket.cdn_djmaddox_co_uk.id
 
   block_public_acls       = true
   block_public_policy     = true
@@ -97,20 +97,20 @@ resource "aws_cloudfront_origin_access_control" "cdn_djmaddox_co_uk" {
 
 resource "aws_cloudfront_distribution" "cdn_djmaddox_co_uk" {
   origin {
-    domain_name = data.aws_s3_bucket.cdn_djmaddox_co_uk.bucket_regional_domain_name
-    origin_id   = data.aws_s3_bucket.cdn_djmaddox_co_uk.bucket_regional_domain_name
+    domain_name              = data.aws_s3_bucket.cdn_djmaddox_co_uk.bucket_regional_domain_name
+    origin_id                = data.aws_s3_bucket.cdn_djmaddox_co_uk.bucket_regional_domain_name
     origin_access_control_id = aws_cloudfront_origin_access_control.cdn_djmaddox_co_uk.id
   }
-  
+
 
   aliases = ["cdn.djmaddox.co.uk"]
   enabled = true
 
   default_cache_behavior {
-    cache_policy_id = data.aws_cloudfront_cache_policy.cdn_djmaddox_co_uk.id
+    cache_policy_id  = data.aws_cloudfront_cache_policy.cdn_djmaddox_co_uk.id
     allowed_methods  = ["GET", "HEAD"]
     cached_methods   = ["GET", "HEAD"]
-    target_origin_id =  data.aws_s3_bucket.cdn_djmaddox_co_uk.bucket_regional_domain_name
+    target_origin_id = data.aws_s3_bucket.cdn_djmaddox_co_uk.bucket_regional_domain_name
 
     viewer_protocol_policy = "allow-all"
     min_ttl                = 0
@@ -126,6 +126,6 @@ resource "aws_cloudfront_distribution" "cdn_djmaddox_co_uk" {
 
   viewer_certificate {
     acm_certificate_arn = aws_acm_certificate.cdn_djmaddox_co_uk.id
-    ssl_support_method = "sni-only"
+    ssl_support_method  = "sni-only"
   }
 }

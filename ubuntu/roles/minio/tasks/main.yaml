@@ -1,0 +1,7 @@
+---
+
+- import_tasks: create_user_account.yaml
+- import_tasks: aws_access_key_file.yaml
+- import_tasks: minio_client.yaml
+  become: true
+  become_user: root

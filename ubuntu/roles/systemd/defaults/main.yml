@@ -1,0 +1,87 @@
+---
+systemd_service: {}
+systemd_target: {}
+
+#
+# systemd_service:
+#   service:
+#     service_name: ""
+#     enabled: False
+#     description: "Service for {{ key }}"
+#     after: ""
+#     before: ""
+#     user: ""
+#     group: ""
+#     limit_cpu: ""
+#     limit_fsize: ""
+#     limit_data: ""
+#     limit_stack: ""
+#     limit_core: ""
+#     limit_rss: ""
+#     limit_nofile: ""
+#     limit_as: ""
+#     limit_nproc: ""
+#     limit_memlock: ""
+#     limit_locks: ""
+#     limit_sigpending: ""
+#     limit_msgqueue: ""
+#     limit_nice: ""
+#     limit_rtprio: ""
+#     limit_rttime: ""
+#     type: ""
+#     pid_file: ""
+#     oom_score_adjust: ""
+#     nice: ""
+#     remain_after_exit: ""
+#     exec_start: "" or exec_start: [] (only when oneshot)
+#     exec_start_pre: "" or exec_start_pre: []
+#     exec_start_post: "" or exec_start_post: []
+#     exec_stop: "" or exec_stop: []
+#     exec_stop_post: "" or exec_stop_post: []
+#     exec_reload: "" or exec_reload: []
+#     restart: ""
+#     restart_sec: "30"
+#     timeout_sec: ""
+#     wants: ""
+#     requires: ""
+#     environment: {}
+#     environment_file: ""
+#     working_directory: ""
+#     standard_input: ""
+#     standard_output: ""
+#     standard_error: ""
+#     tty_path: ""
+#     wanted_by: ""
+#     required_by: ""
+#     assert_architecture: []
+#     assert_virtualization: []
+#     assert_host: []
+#     assert_kernel_command_line: []
+#     assert_kernel_version: []
+#     assert_security: []
+#     assert_capability: []
+#     assert_acpower: []
+#     assert_needs_update: []
+#     assert_first_boot: []
+#     assert_path_exists: []
+#     assert_path_exists_glob: []
+#     assert_path_is_directory: []
+#     assert_path_is_symbolic_link: []
+#     assert_path_is_mount_point: []
+#     assert_path_is_read_write: []
+#     assert_directory_not_empty: []
+#     assert_file_not_empty: []
+#     assert_file_is_executable: []
+#     assert_user: []
+#     assert_group: []
+#     assert_control_group_controller: []
+#
+# systemd_target:
+#   target_name:
+#     description: "Target for {{ key }}"
+#     requires: []
+#     before: ""
+#     after: ""
+#     default_dependencies: True
+#     allow_isolate: False
+#

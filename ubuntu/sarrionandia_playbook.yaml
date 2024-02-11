@@ -5,10 +5,14 @@
   vars_files: vars/ubuntu.yaml
   roles:
     - volumes
+    - hostname
+    - users
     - update
     - awscli
     - wordpress
     - { role: geerlingguy.certbot }
     - { role: geerlingguy.apache }
+    - modsecurity
+    - minio
   become: true
   become_user: root

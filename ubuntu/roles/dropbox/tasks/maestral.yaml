@@ -1,0 +1,12 @@
+---
+
+- name: Install PIP
+  apt:
+    pkg:
+      - "python3-pip"
+    state: latest
+    update_cache: yes
+
+
+- pip:
+    name: maestral

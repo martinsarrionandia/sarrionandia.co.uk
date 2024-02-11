@@ -21,7 +21,7 @@
     fstype: ext4
     state: mounted
 
-- name: Mount www.djmaddox.co.uk wordpress root
+- name: Mount www.djmaddox.co.uk wordpress wp-content
   mount:
     path: "/var/www/www.djmaddox.co.uk/wp-content/uploads"
     src: UUID="d78b2eed-bac4-4bcf-bc98-de4278f72787"

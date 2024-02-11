@@ -1,0 +1,5 @@
+---
+
+- import_tasks: hostname.yaml
+  become: true
+  become_user: root

@@ -1,0 +1,26 @@
+
+- file:
+    path: "/home/{{ mc_user }}/.aws"
+    state: directory
+    owner: "{{ mc_user }}"
+    group: "{{ mc_user }}"
+    mode: 0600
+  
+- copy:
+    content: |
+            [default]
+            region = {{ eu-west-2 }}
+    dest: "/home/{{ mc_user }}/.aws/config"
+    owner: "{{ mc_user }}"
+    group: "{{ mc_user }}"
+    mode: 0600
+
+- copy:
+    content: |
+            [default]
+            aws_access_key_id = {{ lookup('amazon.aws.aws_secret', 'sarrionandia_s3_access.aws_access_key_id') }}
+            aws_secret_access_key = {{ lookup('amazon.aws.aws_secret', 'sarrionandia_s3_access.aws_secret_access_key') }}
+    dest: "/home/{{ mc_user }}/.aws/credentials"
+    owner: "{{ mc_user }}"
+    group: "{{ mc_user }}"
+    mode: 0600

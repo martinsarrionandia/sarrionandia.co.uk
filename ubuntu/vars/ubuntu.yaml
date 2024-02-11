@@ -28,3 +28,17 @@ certbot_certs:
   - email: martin@sarrionandia.co.uk
     domains:
     - www.djmaddox.co.uk
+
+mc_user: mcsync
+
+systemd_service:
+  sync-djmaddox-wpuploads:
+    service_name: "sync-djmaddox-wpuploads"
+    enabled: true
+    description: "Service to run minio client sync for djmaddox wordpress uploads"
+    exec_start: "/usr/local/bin/mc mirror --quiet --overwrite --watch /var/www/www.djmaddox.co.uk/wp-content/uploads/ s3/cdn.djmaddox.co.uk/wp-content/uploads/"
+    after: ""
+    user: "mcsync"
+    group: "mcsync"
+    restart: "on-failure"
+    wanted_by: "multi-user.target"

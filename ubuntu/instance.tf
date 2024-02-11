@@ -6,7 +6,11 @@ data "aws_ami" "ubuntu" {
   filter {
     name   = "architecture"
     values = ["x86_64"]
+  }
 
+  filter {
+    name   = "creation-date"
+    values = ["2024-01-26T*"]
   }
 }
 

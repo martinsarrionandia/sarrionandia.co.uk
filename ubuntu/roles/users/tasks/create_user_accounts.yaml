@@ -1,7 +1,0 @@
----
-
-- user:
-    name: www-data
-    comment: Apache user"
-    uid: 1040
-    group: admin
