@@ -33,7 +33,9 @@
                 "arn:aws:s3:::djmaddox.co.uk",
                 "arn:aws:s3:::djmaddox.co.uk/*",
                 "arn:aws:s3:::cdn.djmaddox.co.uk",
-                "arn:aws:s3:::cdn.djmaddox.co.uk/*"
+                "arn:aws:s3:::cdn.djmaddox.co.uk/*",
+                "arn:aws:s3:::mojobooth.co.uk",
+                "arn:aws:s3:::mojobooth.co.uk/*"
             ]
         }
     ]

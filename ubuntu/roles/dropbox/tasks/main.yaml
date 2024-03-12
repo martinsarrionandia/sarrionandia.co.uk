@@ -1,5 +1,5 @@
 ---
 
-- import_tasks: maestral.yaml
+- import_tasks: install_dropbox.yaml
   become: true
-  become_user: root
+  become_user: "{{ mc_user }}"

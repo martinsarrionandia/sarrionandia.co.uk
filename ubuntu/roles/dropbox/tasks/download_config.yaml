@@ -1,0 +1,16 @@
+---
+
+# DOES NOT WORK
+
+- name: Download config from S3
+  amazon.aws.s3_object:
+    bucket: sarrionandia.co.uk
+    object: dropbox-david@djmaddox.co.uk.tar.gz
+    dest: /home/{{ mc_user }}/dropbox-david@djmaddox.co.uk.tar.gz
+    mode: get
+
+- name: Unpack Dropbox Config
+  ansible.builtin.unarchive:
+    src: /home/{{ mc_user }}/dropbox-david@djmaddox.co.uk.tar.gz
+    dest: /home/{{ mc_user }}/
+    remote_src : yes

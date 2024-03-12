@@ -1,0 +1,4 @@
+- command: 
+    cmd: mc alias set s3 https://s3.eu-west-1.amazonaws.com:443  {{ lookup('amazon.aws.aws_secret', '{{ aws_user_role }}.aws_access_key_id', nested=True) }} {{ lookup('amazon.aws.aws_secret', '{{ aws_user_role }}.aws_secret_access_key', nested=True) }}
+  become: true
+  become_user: "{{ mc_user }}"

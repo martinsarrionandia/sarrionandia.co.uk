@@ -30,6 +30,7 @@ certbot_certs:
     - www.djmaddox.co.uk
 
 mc_user: mcsync
+aws_user_role: sarrionandia_s3_access
 
 systemd_service:
   sync-djmaddox-wpuploads:
@@ -42,3 +43,24 @@ systemd_service:
     group: "mcsync"
     restart: "on-failure"
     wanted_by: "multi-user.target"
+  dropboxd-djmaddox:
+    service_name: "dropboxd-djmaddox"
+    enabled: true
+    description: "Dropbox sync daemon"
+    exec_start: "/home/mcsync/.dropbox-dist/dropboxd"
+    after: ""
+    user: "mcsync"
+    group: "mcsync"
+    restart: "on-failure"
+    wanted_by: "multi-user.target"
+  sync-djmaddox-dropbox:
+    service_name: "sync-djmaddox-dropbox"
+    enabled: true
+    description: "Service to run minio client sync for djmaddox wordpress uploads"
+    exec_start: "/usr/local/bin/mc mirror --quiet --overwrite --watch /home/mcsync/Dropbox s3/mojobooth.co.uk/Dropbox"
+    after: ""
+    user: "mcsync"
+    group: "mcsync"
+    restart: "on-failure"
+    wanted_by: "multi-user.target"
+    assert_path_exists: ['/home/mcsync/Dropbox']

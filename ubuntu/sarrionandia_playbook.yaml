@@ -6,13 +6,14 @@
   roles:
     - volumes
     - hostname
-    - users
     - update
-    - awscli
+    - tools
     - wordpress
     - { role: geerlingguy.certbot }
     - { role: geerlingguy.apache }
     - modsecurity
     - minio
+    - dropbox
+    - systemd
   become: true
   become_user: root

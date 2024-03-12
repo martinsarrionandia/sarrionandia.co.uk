@@ -9,7 +9,7 @@
 - copy:
     content: |
             [default]
-            region = {{ eu-west-2 }}
+            region = eu-west-2
     dest: "/home/{{ mc_user }}/.aws/config"
     owner: "{{ mc_user }}"
     group: "{{ mc_user }}"
@@ -18,8 +18,8 @@
 - copy:
     content: |
             [default]
-            aws_access_key_id = {{ lookup('amazon.aws.aws_secret', 'sarrionandia_s3_access.aws_access_key_id') }}
-            aws_secret_access_key = {{ lookup('amazon.aws.aws_secret', 'sarrionandia_s3_access.aws_secret_access_key') }}
+            aws_access_key_id = {{ lookup('amazon.aws.aws_secret', '{{ aws_user_role }}.aws_access_key_id', nested=True) }}
+            aws_secret_access_key = {{ lookup('amazon.aws.aws_secret', '{{ aws_user_role }}.aws_secret_access_key', nested=True) }}
     dest: "/home/{{ mc_user }}/.aws/credentials"
     owner: "{{ mc_user }}"
     group: "{{ mc_user }}"

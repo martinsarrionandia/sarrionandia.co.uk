@@ -9,4 +9,6 @@
 
 
 - pip:
-    name: maestral
+    name: 
+    - boto3
+    - botocore

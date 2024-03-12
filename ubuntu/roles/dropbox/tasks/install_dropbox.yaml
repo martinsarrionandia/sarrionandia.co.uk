@@ -1,0 +1,11 @@
+
+- name: Download and install Dropbox Daemon
+  get_url:
+    url: https://www.dropbox.com/download?plat=lnx.x86_64
+    dest: /home/{{ mc_user }}/dropbox-daemon.tar.gz
+
+- name: Unpack the Dropbox Daemon
+  ansible.builtin.unarchive:
+    src: /home/{{ mc_user }}/dropbox-daemon.tar.gz
+    dest: /home/{{ mc_user }}/
+    remote_src : yes

@@ -1,5 +1,7 @@
 ---
 
 - import_tasks: awscli.yaml
+- import_tasks: acl.yaml
+- import_tasks: pip_packages.yaml
   become: true
   become_user: root
