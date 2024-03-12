@@ -1,0 +1,17 @@
+---
+
+- name: Install apache2 apparmor profile
+  apt:
+    pkg:
+      - "libapache2-mod-apparmor"
+    state: latest
+    update_cache: yes
+
+- name: Enable apparmor apache2 profile
+  command: 
+    cmd: aa-enforce /etc/apparmor.d/usr.sbin.apache2
+
+- name: Enable apache2 apparmour module
+  apache2_module:
+    state: present
+    name: apparmor

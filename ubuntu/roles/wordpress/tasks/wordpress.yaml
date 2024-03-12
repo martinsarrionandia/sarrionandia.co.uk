@@ -16,6 +16,5 @@
       - "php-xml"
       - "php-zip"
       - "mysql-server"
-      - "ibapache2-mod-apparmor"
     state: latest
     update_cache: yes

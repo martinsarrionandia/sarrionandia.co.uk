@@ -12,6 +12,7 @@
     - { role: geerlingguy.certbot }
     - { role: geerlingguy.apache }
     - modsecurity
+    - apparmor
     - minio
     - dropbox
     - systemd
