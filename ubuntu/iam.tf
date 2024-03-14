@@ -53,6 +53,7 @@ resource "aws_iam_user_policy" "sarrionandia_s3" {
 
 resource "aws_secretsmanager_secret" "sarrionandia_s3_access" {
   name = "sarrionandia_s3_access"
+  recovery_window_in_days = 0
   description = "AWS Access key and Secret for sarrionandia_s3_access user"
   kms_key_id = data.aws_kms_key.sarrionandia.id
 }

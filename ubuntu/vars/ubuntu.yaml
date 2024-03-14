@@ -64,3 +64,12 @@ systemd_service:
     restart: "on-failure"
     wanted_by: "multi-user.target"
     assert_path_exists: ['/home/mcsync/Dropbox']
+
+sec_rule_remove_by_id: "951120,951190,951250,951210,951220,941180,941160,941200,941400,942550"
+sec_rule_wordpress_connect_to_self:
+  101:
+    sec_rule_id: "932235"
+    description: "Remote Command Execution: Unix Command Injection (command without evasion) REQUEST_COOKIES:wp-settings-1: editor=tinymc"
+  102:
+    sec_rule_id: "9301301"
+    description: "Restricted File Access Attempt data Matched Data: wp-config.php found within REQUEST_FILENAME: /wp-config.php"

@@ -8,7 +8,11 @@ SecAuditLogParts "{{ sec_audit_log_parts }}"
 
 SecServerSignature "{{ sec_server_signature }}"
 SecRuleRemoveById  "{{ sec_rule_remove_by_id }}"
+{% for rule in sec_rule_wordpress_connect_to_self %}
 
+# {{ sec_rule_wordpress_connect_to_self[rule].description }}
+SecRule REMOTE_ADDR "@ipMatch {{ lookup('community.general.dig', 'sarrionandia.co.uk')}}" "id:{{ rule }},phase:1,t:none,log,pass,ctl:ruleRemoveById={{ sec_rule_wordpress_connect_to_self[rule].sec_rule_id }}"
+{% endfor %}
 
 # -- Rule engine initialization ----------------------------------------------
 
@@ -107,8 +111,8 @@ SecRule MULTIPART_UNMATCHED_BOUNDARY "!@eq 0" \
 # PCRE Tuning
 # We want to avoid a potential RegEx DoS condition
 #
-SecPcreMatchLimit 100000
-SecPcreMatchLimitRecursion 100000
+SecPcreMatchLimit 90000
+SecPcreMatchLimitRecursion 90000
 
 # Some internal errors will set flags in TX and we will need to look for these.
 # All of these are prefixed with "MSC_".  The following flags currently exist:
