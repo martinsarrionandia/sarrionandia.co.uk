@@ -65,7 +65,7 @@ systemd_service:
     wanted_by: "multi-user.target"
     assert_path_exists: ['/home/mcsync/Dropbox']
 
-sec_rule_remove_by_id: "951120,951190,951250,951210,951220,941180,941160,941200,941400,942550"
+sec_rule_remove_by_id: "951120,951190,951250,951210,951220,941180,941160,941200,941400,942550,934100,920100"
 sec_rule_wordpress_connect_to_self:
   101:
     sec_rule_id: "932235"
