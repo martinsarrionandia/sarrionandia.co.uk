@@ -14,6 +14,10 @@ SecRuleRemoveById  "{{ sec_rule_remove_by_id }}"
 SecRule REMOTE_ADDR "@ipMatch {{ lookup('community.general.dig', 'sarrionandia.co.uk')}}" "id:{{ rule }},phase:1,t:none,log,pass,ctl:ruleRemoveById={{ sec_rule_wordpress_connect_to_self[rule].sec_rule_id }}"
 {% endfor %}
 
+# IP whitelist ansible master
+# Allow unrestricted access from {{ connected_from.stdout }}
+SecRule REMOTE_ADDR "@ipMatch {{ connected_from.stdout }}" "phase:1,id:200000001,nolog,allow"
+
 # -- Rule engine initialization ----------------------------------------------
 
 # Enable ModSecurity, attaching it to every transaction. Use detection
