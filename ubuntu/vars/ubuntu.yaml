@@ -1,6 +1,11 @@
 apache_listen_port: 80
 apache_listen_port_ssl: 443
 apache_remove_default_vhost: true
+apache_vhosts:
+  - servername: "www.iconsfromjars.co.uk"
+    documentroot: "/var/www/www.iconsfromjars.co.uk"
+  - servername: "www.djmaddox.co.uk"
+    documentroot: "/var/www/www.djmaddox.co.uk"
 apache_vhosts_ssl:
   - servername: "www.iconsfromjars.co.uk"
     documentroot: "/var/www/www.iconsfromjars.co.uk"
