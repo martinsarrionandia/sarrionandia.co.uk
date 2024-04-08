@@ -1,9 +1,10 @@
 ---
 
-- name: Update stuff
+- name: Update whitelist for current broadband IP
   hosts: ubuntu
   vars_files: vars/ubuntu.yaml
   roles:
     - modsecurity
+    - htaccess
   become: true
   become_user: root

@@ -1,0 +1,20 @@
+- name: Gather Control Node Connection IP
+  shell:
+    cmd:  who | cut -d "(" -f2 | cut -d ")" -f1 | uniq
+  changed_when: false
+  check_mode: false
+  register: connected_from
+
+- name: Show Connected From
+  debug:
+    msg: "{{ connected_from.stdout }}"
+
+- name: Deploy .htaccess file to wordpress root
+  template:
+    src: "templates/{{ item.servername }}/.htaccess.j2"
+    dest: "{{ item.documentroot }}/.htaccess"
+    owner: www-data
+    group: www-data
+    mode: 0644
+  with_items:
+    - "{{ apache_vhosts }}"

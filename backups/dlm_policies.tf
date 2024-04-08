@@ -4,7 +4,7 @@ resource "aws_dlm_lifecycle_policy" "backup_now" {
   state              = "ENABLED"
 
   tags = {
-      Name = "Immediate backup"
+    Name = "Immediate backup"
   }
 
   policy_details {
@@ -18,19 +18,19 @@ resource "aws_dlm_lifecycle_policy" "backup_now" {
       }
 
       retain_rule {
-        count = 3
+        count = 6
       }
 
       tags_to_add = {
         SnapshotCreator = "DLM"
-        "Backup" = "immediate"
+        "Backup"        = "immediate"
       }
       copy_tags = true
     }
     target_tags = {
       "backup_now" = "True"
     }
-  }  
+  }
 }
 
 resource "aws_dlm_lifecycle_policy" "backup_monthly" {
@@ -39,7 +39,7 @@ resource "aws_dlm_lifecycle_policy" "backup_monthly" {
   state              = "ENABLED"
 
   tags = {
-      Name = "Monthly backup"
+    Name = "Monthly backup"
   }
 
   policy_details {
@@ -58,14 +58,14 @@ resource "aws_dlm_lifecycle_policy" "backup_monthly" {
 
       tags_to_add = {
         SnapshotCreator = "DLM"
-        "Backup" = "Monthly"
+        "Backup"        = "Monthly"
       }
       copy_tags = true
     }
     target_tags = {
       "backup_monthly" = "True"
     }
-  }  
+  }
 }
 
 resource "aws_dlm_lifecycle_policy" "backup_yearly" {
@@ -74,7 +74,7 @@ resource "aws_dlm_lifecycle_policy" "backup_yearly" {
   state              = "ENABLED"
 
   tags = {
-      Name = "Yearly backup"
+    Name = "Yearly backup"
   }
 
   policy_details {
@@ -93,22 +93,23 @@ resource "aws_dlm_lifecycle_policy" "backup_yearly" {
 
       tags_to_add = {
         SnapshotCreator = "DLM"
-        "Backup" = "Yearly"
+        "Backup"        = "Yearly"
       }
       copy_tags = true
     }
     target_tags = {
       "backup_yearly" = "True"
     }
-  }  
+  }
 }
 
 locals {
-    backup_time = timeadd(timestamp(),"1m")
-    minutes = formatdate("m", local.backup_time)
-    hours = formatdate("h", local.backup_time)
-    day = formatdate("D", local.backup_time)
-    month = formatdate("M", local.backup_time)
-    year = formatdate("YYYY", local.backup_time)
-    cron_now = "cron(${local.minutes} ${local.hours} ${local.day} ${local.month} ? ${local.year})"
+  #backup_time = timeadd(timestamp(),"5m")
+  backup_time = timeadd(timestamp(), "65m")
+  minutes     = formatdate("m", local.backup_time)
+  hours       = formatdate("h", local.backup_time)
+  day         = formatdate("D", local.backup_time)
+  month       = formatdate("M", local.backup_time)
+  year        = formatdate("YYYY", local.backup_time)
+  cron_now    = "cron(${local.minutes} ${local.hours} ${local.day} ${local.month} ? ${local.year})"
 }

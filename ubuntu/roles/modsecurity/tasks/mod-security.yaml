@@ -21,9 +21,9 @@
     state: latest
 
 - name: Deploy GeoIP Configuration
-  template:
-    src: "GeoIP.conf"
-    dest: "/etc/"
+  copy:
+    content: "{{maxmind_license}}"
+    dest: "/etc/GeoIP.conf"
     owner: root
     group: root
     mode: 0644

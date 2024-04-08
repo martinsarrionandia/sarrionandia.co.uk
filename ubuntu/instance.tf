@@ -8,10 +8,10 @@ data "aws_ami" "ubuntu" {
     values = ["x86_64"]
   }
 
-  filter {
-    name   = "creation-date"
-    values = ["2024-01-26T*"]
-  }
+  #filter {
+  #  name   = "creation-date"
+  #  values = ["2024-01-26T*"]
+  #}
 }
 
 resource "aws_instance" "sarrionandia" {

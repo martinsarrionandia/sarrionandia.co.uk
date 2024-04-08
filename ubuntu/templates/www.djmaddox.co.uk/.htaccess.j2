@@ -1,0 +1,58 @@
+Options -Indexes +FollowSymLinks +SymLinksIfOwnerMatch
+
+#Rewrite HTTP to HTTPS
+RewriteEngine On
+RewriteCond %{HTTPS} off
+RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI} [R,L]
+
+#Rewrite requests for content
+#Redirect 301 /wp-content/uploads https://cdn.djmaddox.co.uk/wp-content/uploads
+
+#SUBSTITUE CDN Inside Javascript & HTML
+AddOutputFilterByType INFLATE;SUBSTITUTE;DEFLATE text/html text/plain text/xml
+AddOutputFilterByType SUBSTITUTE text/html
+AddOutputFilterByType SUBSTITUTE text/css
+AddOutputFilterByType SUBSTITUTE text/js
+
+<If "%{REMOTE_ADDR} !='{{ connected_from.stdout }}'">
+    Substitute "s|www\.djmaddox\.co\.uk/wp-content/uploads|cdn\.djmaddox\.co\.uk/wp-content/uploads|i"
+    Substitute "s|www\.djmaddox\.co\.uk\\\\/wp-content\\\\/uploads|cdn\.djmaddox\.co\.uk\\\\/wp-content\\\\/uploads|i"
+
+    Substitute "s|www\.djmaddox\.co\.uk/wp-content/fonts|cdn\.djmaddox\.co\.uk/wp-content/fonts|i"
+    Substitute "s|www\.djmaddox\.co\.uk\\\\/wp-content\\\\/fonts|cdn\.djmaddox\.co\.uk\\\\/wp-content\\\\/fonts|i"
+
+</If>
+
+<ifModule mod_headers.c>
+  <filesMatch "\.(ico|jpg|jpeg|png|gif|eot|woff)$">
+    Header always set Cache-Control "max-age=31536000, public"
+  </filesMatch>
+  <filesMatch "\.(css)$">
+    Header always set Cache-Control "max-age=31536000, public"
+  </filesMatch>
+  <filesMatch "\.(js)$">
+    Header always set Cache-Control "max-age=31536000, public"
+  </filesMatch>
+  <filesMatch "\.(xml|txt)$">
+    Header always set Cache-Control "max-age=31536000, public, must-revalidate"
+  </filesMatch>
+  <filesMatch "\.(html|htm|php)$">
+    Header always set Cache-Control "max-age=31536000, private"
+  </filesMatch>
+</ifModule>
+
+# BEGIN WordPress
+# The directives (lines) between "BEGIN WordPress" and "END WordPress" are
+# dynamically generated, and should only be modified via WordPress filters.
+# Any changes to the directives between these markers will be overwritten.
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+RewriteBase /
+RewriteRule ^index\.php$ - [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /index.php [L]
+</IfModule>
+
+# END WordPress

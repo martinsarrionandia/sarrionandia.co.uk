@@ -78,3 +78,5 @@ sec_rule_wordpress_connect_to_self:
   102:
     sec_rule_id: "9301301"
     description: "Restricted File Access Attempt data Matched Data: wp-config.php found within REQUEST_FILENAME: /wp-config.php"
+
+maxmind_license: "{{ lookup('amazon.aws.aws_secret', 'maxmind_license', nested=False) }}"
