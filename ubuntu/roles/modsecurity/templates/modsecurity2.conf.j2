@@ -11,7 +11,7 @@ SecRuleRemoveById  "{{ sec_rule_remove_by_id }}"
 {% for rule in sec_rule_wordpress_connect_to_self %}
 
 # {{ sec_rule_wordpress_connect_to_self[rule].description }}
-SecRule REMOTE_ADDR "@ipMatch {{ lookup('community.general.dig', 'sarrionandia.co.uk')}}" "id:{{ rule }},phase:1,t:none,log,pass,ctl:ruleRemoveById={{ sec_rule_wordpress_connect_to_self[rule].sec_rule_id }}"
+SecRule REMOTE_ADDR "@ipMatch {{ lookup('community.general.dig', '{{ inventory_hostname }}')}}" "id:{{ rule }},phase:1,t:none,log,pass,ctl:ruleRemoveById={{ sec_rule_wordpress_connect_to_self[rule].sec_rule_id }}"
 {% endfor %}
 
 # IP whitelist ansible master

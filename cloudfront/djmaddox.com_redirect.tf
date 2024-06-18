@@ -1,8 +1,3 @@
-data "aws_route53_zone" "djmaddox_com" {
-  name         = "djmaddox.com"
-  private_zone = false
-}
-
 resource "aws_route53_record" "djmaddox_com_apex" {
 
   zone_id = data.aws_route53_zone.djmaddox_com.zone_id

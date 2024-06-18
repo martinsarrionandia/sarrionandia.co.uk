@@ -1,8 +1,3 @@
-data "aws_route53_zone" "djmaddox_co_uk" {
-  name         = "djmaddox.co.uk"
-  private_zone = false
-}
-
 resource "aws_route53_record" "djmaddox_co_uk_apex" {
 
   zone_id = data.aws_route53_zone.djmaddox_co_uk.zone_id
@@ -121,4 +116,8 @@ resource "aws_cloudfront_distribution" "djmaddox_co_uk" {
     acm_certificate_arn = aws_acm_certificate.djmaddox_co_uk.id
     ssl_support_method  = "sni-only"
   }
+}
+
+locals {
+  djmaddox_fqdn       = "djmaddox.co.uk"
 }

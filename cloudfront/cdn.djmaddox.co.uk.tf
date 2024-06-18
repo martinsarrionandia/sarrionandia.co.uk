@@ -1,8 +1,3 @@
-#data "aws_route53_zone" "djmaddox_co_uk" {
-#  name         = "djmaddox.co.uk"
-#  private_zone = false
-#}
-
 resource "aws_route53_record" "cdn_djmaddox_co_uk" {
 
   zone_id = data.aws_route53_zone.djmaddox_co_uk.zone_id

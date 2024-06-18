@@ -8,10 +8,12 @@
     - hostname
     - update
     - tools
+    - mysql
     - wordpress
     - { role: geerlingguy.certbot }
     - { role: geerlingguy.apache }
     - modsecurity
+    - htaccess
     - apparmor
     - minio
     - dropbox

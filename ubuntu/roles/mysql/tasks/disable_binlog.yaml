@@ -1,0 +1,16 @@
+---
+
+- name: Create Mysql conf directory
+  file:
+    path: "/etc/mysql/conf.d/"
+    state: directory
+
+- name: Disable Binary Logging for MySQL
+  copy:
+    content: |
+            [mysqld]
+            skip-log-bin
+    dest: "/etc/mysql/conf.d/disable_binary_log.cnf"
+    owner: "root"
+    group: "root"
+    mode: 0644

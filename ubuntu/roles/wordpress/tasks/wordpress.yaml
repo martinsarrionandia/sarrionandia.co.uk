@@ -15,6 +15,7 @@
       - "php-mysql"
       - "php-xml"
       - "php-zip"
+      - "php-intl"
       - "mysql-server"
     state: latest
     update_cache: yes

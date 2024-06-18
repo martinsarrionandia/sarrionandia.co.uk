@@ -34,7 +34,7 @@ resource "aws_dlm_lifecycle_policy" "backup_now" {
 }
 
 resource "aws_dlm_lifecycle_policy" "backup_monthly" {
-  description        = "Monthly backup policy retain 3 backups"
+  description        = "Monthly backup policy retain 6 backups"
   execution_role_arn = aws_iam_role.dlm_lifecycle_role.arn
   state              = "ENABLED"
 

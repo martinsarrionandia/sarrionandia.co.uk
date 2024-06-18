@@ -1,8 +1,3 @@
-data "aws_route53_zone" "mojobooth" {
-  name         = "mojobooth.co.uk"
-  private_zone = false
-}
-
 resource "aws_route53_record" "mojobooth_co_uk" {
 
   zone_id = data.aws_route53_zone.mojobooth.zone_id
