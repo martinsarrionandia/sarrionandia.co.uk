@@ -1,0 +1,5 @@
+---
+
+- import_tasks: s3-backup.yaml
+  become: true
+  become_user: root

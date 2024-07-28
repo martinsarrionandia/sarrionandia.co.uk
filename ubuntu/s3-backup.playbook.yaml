@@ -1,0 +1,9 @@
+---
+
+- name: Perform backup of wordpress, letsencrypt and mysql to S3
+  hosts: ubuntu
+  vars_files: vars/ubuntu.yaml
+  roles:
+    - s3-backup
+  become: true
+  become_user: root

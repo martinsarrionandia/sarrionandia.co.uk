@@ -1,0 +1,13 @@
+---
+
+- name: Perform MySQL database dump for all databases to S3
+  shell:
+    cmd: mysqldump --all-databases | aws s3 cp - s3://djmaddox.co.uk/$(date +"%Y-%m-%d")/sarrionandia.co.uk.mysql
+
+- name: Backup Wordpress files
+  shell:
+    cmd: cd /var/www && tar --exclude=www.djmaddox.co.uk/wp-content/uploads -cvz  www.djmaddox.co.uk/ | aws s3 cp - s3://djmaddox.co.uk/$(date +"%Y-%m-%d")/djmaddox_wordpress.tar.gz
+
+- name: Backup Letsencrypt Certificates
+  shell:
+    cmd: cd /etc && tar -cvz  letsencrypt | aws s3 cp - s3://djmaddox.co.uk/$(date +"%Y-%m-%d")/letsencrypt.tar.gz
