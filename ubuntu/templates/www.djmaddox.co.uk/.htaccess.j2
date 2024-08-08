@@ -1,5 +1,8 @@
 Options -Indexes +FollowSymLinks +SymLinksIfOwnerMatch
 
+php_value upload_max_filesize 40M
+php_value post_max_size 42M
+
 #Rewrite HTTP to HTTPS
 RewriteEngine On
 RewriteCond %{HTTPS} off

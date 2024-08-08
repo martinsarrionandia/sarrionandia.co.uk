@@ -1,6 +1,6 @@
 - name: Gather Control Node Connection IP
   shell:
-    cmd:  who | cut -d "(" -f2 | cut -d ")" -f1 | uniq
+    cmd:  who -m| cut -d "(" -f2 | cut -d ")" -f1 | uniq
   changed_when: false
   check_mode: false
   register: connected_from
