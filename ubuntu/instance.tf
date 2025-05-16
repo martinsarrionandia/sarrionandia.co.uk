@@ -36,6 +36,9 @@ resource "aws_instance" "sarrionandia" {
     Name    = local.sarrionandia_fqdn
     Rancher = "True"
   }
+  lifecycle {
+    ignore_changes = [ami, user_data]
+  }
 
   provisioner "local-exec" {
     command = "ssh-keygen -R ${self.tags.Name}"

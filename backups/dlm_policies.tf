@@ -23,7 +23,6 @@ resource "aws_dlm_lifecycle_policy" "backup_now" {
 
       tags_to_add = {
         SnapshotCreator = "DLM"
-        "Backup"        = "immediate"
       }
       copy_tags = true
     }
@@ -58,7 +57,6 @@ resource "aws_dlm_lifecycle_policy" "backup_monthly" {
 
       tags_to_add = {
         SnapshotCreator = "DLM"
-        "Backup"        = "Monthly"
       }
       copy_tags = true
     }
@@ -93,7 +91,6 @@ resource "aws_dlm_lifecycle_policy" "backup_yearly" {
 
       tags_to_add = {
         SnapshotCreator = "DLM"
-        "Backup"        = "Yearly"
       }
       copy_tags = true
     }
